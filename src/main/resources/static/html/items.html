@@ -1,0 +1,12 @@
+<div ng-controller="itemController as itemController" class="contents">
+
+    <div ui-grid="itemController.gridOptions" class="row-border hover" ui-grid-auto-resize ui-grid-pagination ui-grid-resize-columns ui-grid-move-columns style="display: table; width: 100%; vertical-align: middle; text-align: center; margin-bottom: 5px"></div>
+    
+    <button class="btn btn-default" id="addItemButton" ng-click="itemController.addItem()" >Add New Item</button>
+    <button class="btn btn-default" id="generateEssentialsButton" ng-click="itemController.generateEssentials()" >Essentials Below Threshold</button>        
+    <button class="btn btn-default" style="position: absolute; right:0px"id="refreshButton" ng-click="itemController.refresh()"><i class="fa fa-refresh"></i></button>    
+</div>
+    
+
+    
+
