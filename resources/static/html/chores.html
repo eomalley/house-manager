@@ -1,0 +1,12 @@
+<div ng-controller="choresController as choresController" class="contents">
+
+
+    <div ui-grid="choresController.gridOptions" class="row-border hover" ui-grid-auto-resize ui-grid-pagination ui-grid-resize-columns ui-grid-move-columns style="display: table; width: 100%; vertical-align: middle; text-align: center; margin-bottom: 5px"></div>
+
+    
+    <button class="btn btn-default" id="addChoreButton" ng-click="choresController.addChore()" >Add Chore</button>        
+    <button class="btn btn-default" id="choreScoreButton" ng-click="choresController.choreScore()" >Chore Scores</button>
+    <button class="btn btn-default" style="position: absolute; right:0px"id="refreshButton" ng-click="choresController.refresh()"><i class="fa fa-refresh"></i></button>           
+  
+
+</div> 

@@ -1,0 +1,116 @@
+<div class="modal-header">
+   <h3 class="modal-title" style="text-align: center;">{{addEditRecipeModalCtrl.title}}</h3>
+</div>
+
+<div class="row"> 
+        <div class="col-sm-12">
+            <div class="well well-small" style="margin-bottom: 0px;">
+                <ng-form class="form-horizontal" name="recipeParamsForm">
+                <div class="form-group">
+                    <i ng-show="recipeParamsForm.name.$dirty && recipeParamsForm.name.$invalid" class="fa fa-exclamation-triangle fa-2x" style="color: red"></i>
+                        <label class="col-sm-1 control-label" for="name">Name:</label>
+                            <div class="col-sm-4" ng-class="{'has-error' : recipeParamsForm.name.$dirty && recipeParamsForm.name.$invalid}">
+                                <input type="text" name="name" id="name" ng-model="addEditRecipeModalCtrl.recipeParams.name" placeholder="Name" class="form-control" required>
+                          </div>
+                          
+                          <label class="col-sm-1 control-label" for="lastMade">Last Made:</label>
+	                        <div class="col-sm-2" ng-class="{'has-error' : addEditRecipeModalCtrl.lastMadeOpen.$dirty && addEditRecipeModalCtrl.lastMadeOpen.$invalid}">
+	                                <input type="text" uib-datepicker-popup="shortDate" ng-click="addEditRecipeModalCtrl.openLastMade($event)" is-open="addEditRecipeModalCtrl.lastMadeOpen" class="form-control"  ng-model="addEditRecipeModalCtrl.recipeParams.lastMade"  id="lastMade" name="lastMade" />       
+	                        </div>
+	                      <label class="col-sm-1 control-label" for="servingSize">Serving Size:</label>
+	                        <div class="col-sm-2"> 
+	                                <input type="number" name="servingSize" id="servingSize" class="form-control"  ng-model="addEditRecipeModalCtrl.recipeParams.servingSize" />
+	                        </div>  
+                </div> 
+                <div class="form-group">
+                    <i ng-show="recipeParamsForm.type.$dirty && recipeParamsForm.type.$invalid" class="fa fa-exclamation-triangle fa-2x" style="color: red"></i>
+                        <label class="col-sm-1 control-label" for="type">Meal:</label>
+                            <div class="col-sm-4" ng-class="{'has-error' : recipeParamsForm.type.$dirty && recipeParamsForm.type.$invalid}">
+                                <input type="text" name="type" id="type" ng-model="addEditRecipeModalCtrl.recipeParams.type" placeholder="Dish Type" uib-typeahead="types for types in addEditRecipeModalCtrl.getRecipeTypes($viewValue)" class="form-control" typeahead-focus-first="false" required>
+                          </div> 
+                          <i ng-show="recipeParamsForm.style.$dirty && recipeParamsForm.style.$invalid" class="fa fa-exclamation-triangle fa-3x" style="color: red"></i>
+                        <label class="col-sm-1 control-label" for="style">Cuisine:</label>
+                            <div class="col-sm-2" ng-class="{'has-error' : recipeParamsForm.style.$dirty && recipeParamsForm.style.$invalid}">
+                                <input type="text" class="form-control" ng-model="addEditRecipeModalCtrl.recipeParams.style" placeholder="Dish Style" uib-typeahead="styles for styles in addEditRecipeModalCtrl.getRecipeStyles($viewValue)" typeahead-focus-first="false" id="style" name="style" required/>
+                            </div>
+                        <label class="col-sm-1 control-label" for="name">Cook Time:</label>
+                            <div class="col-sm-2" >
+                                <input type="text" name="name" id="name" ng-model="addEditRecipeModalCtrl.recipeParams.cookTime" placeholder="Time" class="form-control">
+                          </div>  
+                </div>
+                
+                <div class="form-group">
+                    <label class="col-sm-1 control-label" for="timesMade">Times Made:</label>
+                        <div class="col-sm-4"> 
+                                <input type="number" name="timesMade" id="timesMade" class="form-control"  ng-model="addEditRecipeModalCtrl.recipeParams.timesMade" ng-pattern="/^\d+$/" />
+                        </div>
+                        
+                    <label class="col-sm-1 control-label" for="rating">Rating:</label>
+                        <div class="col-sm-4">
+                                <uib-rating name="rating" id="rating" ng-model="addEditRecipeModalCtrl.recipeParams.rating" max="10" state-on="'fa fa-heart fa-2x pink'" state-off="'fa fa-heart-o fa-2x'"></uib-rating>       
+                        </div>
+                </div>
+                <div class="form-group" ng-repeat="ingredient in addEditRecipeModalCtrl.ingredients"> 
+                        <div class="col-sm-2 col-md-offset-1" ng-class="{'has-error' : recipeParamsForm.ingredientName{{$index}}.length < 0 || recipeParamsForm.ingredientName{{$index}}.$invalid}">
+                            <input type="text" id="ingredientName{{$index}}" name="ingredientName{{$index}}" class="form-control" ng-model="ingredient.itemName" uib-typeahead="items.name for items in addEditRecipeModalCtrl.getLikeItems($viewValue)" typeahead-editable="true" placeholder="Ingredient" required/>
+                        </div>
+                        <div class="col-sm-2" ng-class="{'has-error' : recipeParamsForm.ingredientAmount{{$index}}.length < 0 || recipeParamsForm.ingredientAmount{{$index}}.$invalid}">
+                            <input type="number" id="ingredientAmount{{$index}}" name="ingredientAmount{{$index}}" class="form-control" ng-model="ingredient.amount" min="1" required placeholder="Amount"/>  
+                        </div>
+                        <div class="col-sm-2" ng-class="{'has-error' : recipeParamsForm.ingredientMeasurement{{$index}}.length < 0 || recipeParamsForm.ingredientMeasurement{{$index}}.$invalid}">
+                            <select class="form-control" id="ingredientMeasurement{{$index}}" name="ingredientMeasurement{{$index}}" ng-model="ingredient.measurement" ng-options="type as type for type in addEditRecipeModalCtrl.measurementTypes" placeholder="Measurement" required> 
+                            </select> 
+                        </div>
+                        <div class="col-sm-2">
+                            <input type="text" class="form-control" id="ingredientForm{{$index}}" name="ingredientForm{{$index}}" ng-model="ingredient.form" placeholder="Prep"/> 
+                        </div>
+                        <div class="col-xs-1">    
+                           <button class="btn btn-success" ng-click="addEditRecipeModalCtrl.addIngredient()">
+                                <i class="fa fa-plus-circle"></i>
+                           </button>
+                        </div>
+                        <div class="col-xs-1">
+	                        <button ng-show="addEditRecipeModalCtrl.ingredients.length > 1" class="btn btn-danger" ng-click="addEditRecipeModalCtrl.removeIngredient($index)">
+	                            <i class="fa fa-minus-circle"></i>
+	                        </button>
+                        </div>
+                        <div class="col-xs-1">
+                        <i ng-show="(recipeParamsForm.ingredientName{{$index}}.$dirty && recipeParamsForm.ingredientName{{$index}}.$invalid) || (recipeParamsForm.ingredientAmount{{$index}}.$dirty && recipeParamsForm.ingredientAmount{{$index}}.$invalid)" 
+                                class="fa fa-exclamation-triangle fa-3x" style="color: red"></i>
+                        </div>
+                        </div>
+
+                <div class="form-group">
+                       <label class="col-sm-1 control-label" for="directions">Directions:</label>
+                       <div class="col-sm-10">                           
+                            <textarea class="form-control" rows="4" id="directions" name="directions" ng-model="addEditRecipeModalCtrl.recipeParams.notes" ></textarea>                            
+                       </div>
+                       
+                </div>
+                
+                
+                    <div  class="btn btn-default col-md-offset-1" ngf-select ng-model="addEditRecipeModalCtrl.imageFile" name="file" ngf-pattern="'image/*'"
+                        accept="image/*" ngf-max-size="2MB" ngf-min-height="100" >Select File</div>
+                     
+                    
+                    
+                    <div class="btn btn-info" id="uploadBtn" ng-click="addEditRecipeModalCtrl.uploadFile()" accessKey="s" ng-disabled="!(addEditRecipeModalCtrl.imageFile) || recipeParamsForm.file.$invalid || !(addEditRecipeModalCtrl.recipeParams.id)">Upload Picture</div>
+                
+	                <div class="btn btn-success" ng-click="addEditRecipeModalCtrl.imageFile = null" style="font-size: 14px" ng-show="(addEditRecipeModalCtrl.imageFile)">{{addEditRecipeModalCtrl.imageFile.name}}</div>    
+                    
+                    <div class="fa fa-check-circle fa-2x green"  ng-show="addEditRecipeModalCtrl.success"></div>
+                    <div class="fa fa-exclamation-circle fa-2x red"  ng-show="addEditRecipeModalCtrl.fail"></div>
+                    <img data-ng-src="{{'/upload/recipe/' + addEditRecipeModalCtrl.recipeParams.id}}" image-resize image-percent="10" ng-hide="(addEditRecipeModalCtrl.imageFile)" err-src="images/noImage.png"/>
+                
+                </ng-form>
+                </div>
+                
+                
+            </div>
+</div>
+ 
+<div class="modal-footer">
+    <button class="btn btn-primary" id="saveBtn" ng-click="addEditRecipeModalCtrl.ok()" accessKey="s" ng-disabled="recipeParamsForm.$invalid" >Save</button>
+    <button class="btn btn-warning" id="cancelBtn" ng-click="addEditRecipeModalCtrl.cancel()" accessKey="n">Cancel</button>
+</div> 
+

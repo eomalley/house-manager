@@ -1,0 +1,64 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" ng-app="house">
+<head> 
+    <title>House Manager</title> 
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=667, initial-scale=1, maximum-scale=1"/>
+    <link rel="stylesheet" href="css/ui-grid.min.css"/>
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap-theme.min.css"/>
+    <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css"/>
+
+    <script src="js/lib/angular.min.js"></script>
+    <script src="js/lib/angular-route.min.js"></script>
+    <script src="js/lib/angular-animate.min.js"></script>   
+    <script src="js/lib/ui-bootstrap-tpls-0.14.3.min.js"></script> 
+    <script src="js/lib/ng-file-upload.min.js"></script>
+    <script src="js/lib/moment.min.js"></script> 
+    <script src="js/lib/ui-grid.min.js"></script>
+    <script src="js/house-core.js"></script>
+    <script src="js/house-items.js"></script>
+    <script src="js/house-inventory.js"></script>
+    <script src="js/house-recipe.js"></script>
+    <script src="js/house-chores.js"></script>
+    <script src="js/house-todo.js"></script>
+    <script src="js/house-grocery.js"></script>
+    
+    <base href="/"/>
+</head>
+<body class="house">
+
+<div ng-controller="indexController as indexController">
+    <uib-tabset justified="true">
+    <uib-tab heading="Items" select="indexController.itemsSelected = true" active="false"> 
+    <div ng-include="indexController.getItems()"></div>  
+    </uib-tab>
+    <uib-tab heading="Inventory" select="indexController.invSelected = true"> 
+    <div ng-include="indexController.getInventory()"></div>  
+    </uib-tab>
+    <uib-tab heading="Recipes" select="indexController.recipesSelected = true"> 
+    <div ng-include="indexController.getRecipes()"></div> 
+    </uib-tab>
+    <uib-tab heading="Grocery List" select="indexController.groceryListSelected = true"> 
+    <div ng-include="indexController.getGroceryList()"></div>  
+    </uib-tab>
+    <uib-tab heading="Chores" select="indexController.choresSelected = true"> 
+    <div ng-include="indexController.getChores()"></div>  
+    </uib-tab>
+    <uib-tab heading="To Do" select="indexController.toDoSelected = true"> 
+    <div ng-include="indexController.getToDo()"></div>  
+    </uib-tab>
+    </uib-tabset>
+    <div ng-view="true"></div>
+
+</div>
+
+<div style= "margin: auto; width: 5%">
+<form th:action="@{/logout}" method="post">
+            <input style="margin-top: 25px" class="btn btn-default" type="submit" value="Sign Out"/>
+</form>  
+
+</div>
+</body>
+</html>

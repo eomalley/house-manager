@@ -1,0 +1,74 @@
+<div class="modal-header">
+   <h3 class="modal-title" style="text-align: center;">{{completeToDoModalCtrl.title}}</h3>
+</div>
+<div class="row"> 
+        <div class="col-sm-12" style="margin-bottom: 0px;">
+            <div class="well well-small" style="margin-bottom: 0px;">
+                <ng-form class="form-horizontal" name="toDoParamsForm">
+                
+                    <div class="form-group">
+                    
+                        <label class="col-sm-2 control-label" for="name">Name:</label>
+                           <div class="col-sm-4">
+                            <div name="name" id="name" class="form-control" ng-disabled="true" >{{completeToDoModalCtrl.toDoParams.name}}</div>
+                                
+                          </div> 
+                          
+                        <label class="col-sm-1 control-label" for="location">Location:</label>
+                            <div class="col-sm-4" ng-class="{'has-error' : toDoParamsForm.location.$dirty && toDoParamsForm.location.$invalid}">
+                                <input type="text" name="location" id="location" ng-model="completeToDoModalCtrl.toDoParams.location" placeholder="Complete where?" class="form-control" >
+                          </div>   
+                       
+                    </div>
+                    
+                   <div class="form-group">
+                        <label class="col-sm-2 control-label" for="dateEntered">Date Entered:</label>
+                        <div class="col-sm-4" >
+                                <div name="dateEntered" id="dateEntered" class="form-control" ng-disabled="true">{{completeToDoModalCtrl.toDoParams.dateEntered | date: 'shortDate'}}</div>
+                                    
+                        </div>
+                        <label class="col-sm-1 control-label" for="enteredBy">By:</label>
+                        <div class="col-sm-4" >
+                        		<div name="enteredBy" id="enteredBy" class="form-control" ng-disabled="true">{{completeToDoModalCtrl.toDoParams.enteredBy}}</div>
+                        </div>
+           
+                    </div> 
+                      
+                   <div class="form-group">
+                        <label class="col-sm-2 control-label" for="completedOn">Completed On:</label>
+                        <div class="col-sm-4" ng-class="{'has-error' : toDoParamsForm.completedOn.$dirty && toDoParamsForm.completedOn.$invalid}">
+                                <input type="text" uib-datepicker-popup="shortDate"  ng-click="completeToDoModalCtrl.openCompleteDate($event)" is-open="completeToDoModalCtrl.completeDateOpen" class="form-control"  ng-model="completeToDoModalCtrl.toDoParams.completedOn" min-date="completeToDoModalCtrl.toDoParams.dateEntered"  id="completedOn" name="completedOn" />       
+                        </div>
+                        <label class="col-sm-1 control-label" for="completedBy">By:</label>
+                        <div class="col-sm-4" ng-class="{'has-error' : toDoParamsForm.completedBy.$dirty && toDoParamsForm.completedBy.$invalid}">
+                                <input type="text" class="form-control" ng-model="completeToDoModalCtrl.toDoParams.completedBy" placeholder="Who last did this" uib-typeahead="userNames for userNames in completeToDoModalCtrl.getUserNames($viewValue)" typeahead-focus-first="false" typeahead-editable="false" name="completedBy" id="completedBy" />
+                            </div>
+                        <i ng-show="toDoParamsForm.completedBy.$dirty && toDoParamsForm.completedBy.$invalid" class="fa fa-exclamation-triangle fa-2x" style="color: red"></i>
+                    </div>
+                    
+                    <div class="form-group">
+                       <label class="col-sm-2 control-label" for="notes">Notes:</label>
+                       <div class="col-sm-9">                           
+                            <textarea class="form-control" rows="3" id="notes" name="notes" ng-model="completeToDoModalCtrl.toDoParams.notes" ></textarea>                            
+                       </div>
+                       
+                    </div>
+                    
+                    <div class="form-group" ng-hide="completeToDoModalCtrl.importance">
+                        <label class="col-sm-2 control-label" for="importance">Importance:</label>
+                        <div class="col-sm-6">
+                                <uib-rating ng-model="completeToDoModalCtrl.toDoParams.importance" max="10" state-on="'fa fa-star fa-2x'" state-off="'fa fa-star-o fa-2x'"></uib-rating>       
+                        </div>
+                               
+                    </div>
+                    
+                                        
+                </ng-form>
+            </div>
+      </div>
+</div>
+
+<div class="modal-footer">
+    <button class="btn btn-primary" id="saveBtn" ng-click="completeToDoModalCtrl.ok()" accessKey="s" ng-disabled="toDoParamsForm.$invalid">Save</button>
+    <button class="btn btn-warning" id="cancelBtn" ng-click="completeToDoModalCtrl.cancel()" accessKey="n">Cancel</button>
+</div> 

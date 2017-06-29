@@ -1,0 +1,13 @@
+<div ng-controller="toDoController as toDoController" class="contents">
+
+
+    <div ui-grid="toDoController.gridOptions" class="row-border hover" ui-grid-auto-resize ui-grid-pagination ui-grid-resize-columns ui-grid-move-columns style="display: table; width: 100%; vertical-align: middle; text-align: center; margin-bottom: 5px"></div>
+
+    
+    <button class="btn btn-default" id="addToDoButton" ng-click="toDoController.addToDo()" >Add To Do</button>        
+    <button class="btn btn-default" style="position: absolute; right:0px"id="refreshButton" ng-click="toDoController.refresh()"><i class="fa fa-refresh"></i></button>           
+                           
+    <textarea class="form-control" rows="8" id="scratch" name="scratch" ng-model="toDoController.scratch.note" style="margin-top: 5px; margin-bottom: 5px" ></textarea>                            
+    <button class="btn btn-default" id="updateScratch" ng-click="toDoController.updateScratch()" >Update Scratch</button>        
+    <button class="btn btn-default" style="position: absolute; right:0px"id="refreshScratchButton" ng-click="toDoController.refreshScratch()"><i class="fa fa-refresh"></i></button> 
+</div>
